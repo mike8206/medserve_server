@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %} 個人資料 {% endblock%}
+{% block content %}
+</br>
+<h3 align="center"> 個人資料 </h3>
+</br>
+<div class="table" align="center" id="usertable">
+    <table>
+        <tr>
+            <th>帳號：</th>
+            <td>
+                {{user.account}}
+            </td>
+        </tr>
+        <tr>
+            <th>姓名：</th>
+            <td>
+               {{user.userName}}
+            </td>
+        </tr>
+        <tr>
+            <th>信箱：</th>
+            <td>
+                {{user.email}}
+            </td>
+        </tr>
+        <tr>
+            <th>群組：</th>
+            <td>
+                {{user.group}}
+            </td>
+        </tr>
+        <tr>
+            <th>RedCap Token：</th>
+            <td>
+                {{user.token}}
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="table" align="center">
+    <div id="alterusrt" class="btn btn-primary">更新個資</div>    
+    <div id="alterpwbt" class="btn btn-danger">修改密碼</div>    
+</div>
+<form method="POST">
+    <div id="alterusrc" class="table" align="center" style="display: none;">
+        <table>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="userName">新姓名</label>
+                        <input type="text"
+                        class="form-control"
+                        id="userName"
+                        name="userName"
+                        placeholder="請輸入新姓名"
+                        value={{user.userName}}>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="email">新信箱</label>
+                        <input type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        placeholder="請輸入新信箱"
+                        value={{user.email}}>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="token">Redcap Token</label>
+                        <input type="text"
+                        class="form-control"
+                        id="token"
+                        name="token"
+                        placeholder="請輸入新Redcap Token"
+                        value={{user.token}}>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" name="btname" value="alterusr" />
+                    <button type="submit" class="btn btn-success">提交</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+<form method="POST">
+    <div id="alterpwc" class="table" align="center" style="display: none;">
+        <table>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="password_old">舊密碼</label>
+                        <input type="password"
+                        class="form-control"
+                        id="password_old"
+                        name="password_old"
+                        placeholder="請輸入舊密碼"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="password1">新密碼</label>
+                        <input type="password"
+                        class="form-control"
+                        id="password1"
+                        name="password1"
+                        placeholder="請輸入新密碼"/>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="password2">新密碼(再次輸入)</label>
+                        <input type="password"
+                        class="form-control"
+                        id="password2"
+                        name="password2"
+                        placeholder="請再次輸入新密碼"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" name="btname" value="alterpw" />
+                    <button type="submit" class="btn btn-success">提交</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $('#alterusrt').click(function(){
+        $('#usertable').toggle();
+        $('#alterusrc').toggle();
+        $('#alterpwbt').toggle();
+    });
+</script>
+<script type="text/javascript">
+    $('#alterpwbt').click(function(){
+        $('#usertable').toggle();
+        $('#alterpwc').toggle();
+        $('#alterusrt').toggle();
+    });
+</script>        
+{% endblock %}

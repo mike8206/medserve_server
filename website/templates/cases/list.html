@@ -1,0 +1,146 @@
+{% extends "base.html" %} 
+{% block title %} 清單 {% endblock %}
+{% block filter %}
+<br/>
+<div class="table" align="center">
+    <table align="center">
+        <tr>
+            <h1 align="center">查詢清單</h1>
+        </tr>
+        <table>
+            {% if user.group == 'admin' %}
+            <th>
+                <form action="{{url_for('func_list.list')}}" method="POST">
+                    <input type="hidden" name="btname" value="listRedcap"/>
+                    <button type="submit" class="btn btn-danger">與Redcap同步</button>   
+                </form>
+            </th>
+            {% endif %}
+            <th>
+                <form action="{{url_for('func_list.list')}}" method="POST">
+                    <input type="hidden" name="btname" value="myList"/>
+                    <button type="submit" class="btn btn-primary">我的清單</button>   
+                </form>
+            </th>
+        </table>
+        <table>
+            <form action="{{url_for('func_list.list')}}" method="POST">
+                <th>
+                    個案姓名
+                </th>
+                <td>
+                    <input type="text"
+                    class="form-control"
+                    id="search_caseName"
+                    name="search_caseName"
+                    placeholder="請輸入姓名"/>
+                </td>
+                <th>
+                    個案性別
+                </th>
+                <td>
+                    <select name="search_caseGender" id="search_caseGender">
+                        <option value=></option>
+                        <option value="男性">男性</option>
+                        <option value="女性">女性</option>
+                    </select>
+                </td>
+                <td>
+                <th>
+                    個案地區
+                </th>
+                <td>
+                    <select name="search_Area" id="search_Area">
+                        <option value=></option>
+                        <option value="花蓮">花蓮</option>
+                        <option value="台中">台中</option>
+                        <option value="台東">台東</option>
+                    </select>
+                    <select name="search_location" id="search_location">
+                        <option value=></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="hidden" name="btname" value="search"/>
+                    <button type="submit" class="btn btn-primary">查詢</button>
+                </td>
+            </form>
+        </table>
+    </table>
+</div>
+{% endblock %}
+{% block content %}
+
+{% if search_result %}
+<div class="table" align="center" id="casetable">
+<form action="{{url_for('func_list.list')}}" method="POST">
+    <table>
+        <tr>
+            <th>姓名</th>
+            <th>出生年月日</th>
+            <th>年齡</th>
+            <th>性別</th>
+            <th>地區</th>
+            <th>詳細資料</th>
+            <th><input type="checkbox" id="selectAll" class="css-check" name="selectAll">
+                <input type="hidden" name="btname" value="saveMyList"/>
+                <button type="submit" class="btn btn-success">儲存</button>
+            </th> 
+        </tr>
+        <li class="list-group list-group-flush" id="caselist">
+            {% for case in cases %}
+            <tr>
+                <td>{{ case.name }}</td>
+                <td>{{ case.birthday }}</td>
+                <td>{{ case.age }}</td>
+                <td>{{ case.sex }}</td>
+                <td>{{ case.location }} </td>
+                <td><a href="{{ url_for('func_case.detail_var', caseID=case.redcap_id) }}">詳</a></td>
+                <td><input type="checkbox" name="checkcase" class="checkcase" value={{case.redcap_id}}></td>
+            </tr>
+            {% endfor %}
+        </li>
+    </table>
+</form>
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $("#selectAll").click(function () {
+        $(".checkcase").prop('checked', $(this).prop('checked'));
+    });
+</script>
+<script type="text/javascript">
+    $('#search_Area').on('change', function(){
+    $('#search_location').html('');
+    if($('#search_Area').val()=="花蓮"){
+        $('#search_location').append('<option value=""></option>');
+        $('#search_location').append('<option value="馬遠">馬遠</option>');
+        $('#search_location').append('<option value="東光">東光</option>');
+        $('#search_location').append('<option value="崙山">崙山</option>');
+        $('#search_location').append('<option value="立山">立山</option>');
+        $('#search_location').append('<option value="山里">山里</option>');
+        $('#search_location').append('<option value="明利">明利</option>');
+    }else if($('#search_Area').val()=="台中"){
+        $('#search_location').append('<option value=""></option>');
+        $('#search_location').append('<option value="桃山">桃山</option>');
+        $('#search_location').append('<option value="桃山教會">桃山教會</option>');
+        $('#search_location').append('<option value="達觀">達觀</option>');
+        $('#search_location').append('<option value="香川">香川</option>');
+        $('#search_location').append('<option value="竹林">竹林</option>');
+        $('#search_location').append('<option value="烏石坑">烏石坑</option>');
+        $('#search_location').append('<option value="雙崎">雙崎</option>');
+        $('#search_location').append('<option value="三叉坑">三叉坑</option>');
+    }else if($('#search_Area').val()=="台東"){
+        $('#search_location').append('<option value=""></option>');
+        $('#search_location').append('<option value="台坂">台坂</option>');
+    } else {
+        $('#search_location').append('<option value=""></option>');
+    }
+    });
+</script>
+{% endblock %}

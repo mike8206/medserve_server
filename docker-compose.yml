@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  Web:
+    build: .
+    container_name: NTU Medserve
+    restart: always
+    ports:
+      - '8443:8443'

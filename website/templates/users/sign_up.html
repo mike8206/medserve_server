@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %} 註冊新用戶 {% endblock%}
+{% block content %}
+</br>
+<h3 align="center"> 註冊 </h3>
+<br/>
+<form method="POST">
+<div align="right">
+    <input type="hidden" name="btname" value="addFromRedcap"/>
+    <button type="submit" class="btn btn-success">從Redcap批次匯入</button>   
+</div>
+</form>
+<form method="POST">
+<br/>
+    <div class="form-group">
+        <label class="control-label requiredField" for="account">
+            帳號<span class="asteriskField">*</span>
+        </label>
+        <input type="text" 
+        class="form-control" 
+        id="account" 
+        name="account" 
+        placeholder="請輸入帳號(5碼以上)"/>
+    </div>
+    <div class="form-group">
+        <label for="userName">姓名</label>
+        <input type="text"
+        class="form-control"
+        id="userName"
+        name="userName"
+        placeholder="請輸入姓名"/>
+    </div>
+    <div class="form-group">
+        <label for="email">信箱</label>
+        <input type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        placeholder="請輸入信箱"/>
+    </div>
+    <div class="form-group">
+        <label for="group">群組</label>
+        <select name="group" id="group">
+            <option value="user">使用者</option>
+            <option value="admin">管理員</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="token">Redcap Token</label>
+        <input type="text"
+        class="form-control"
+        id="token"
+        name="token"
+        placeholder="請輸入Redcap Token"/>
+    </div>
+    <div class="form-group">
+        <label for="password1">密碼</label>
+        <input type="password"
+        class="form-control"
+        id="password1"
+        name="password1"
+        placeholder="請輸入密碼"/>
+    </div>
+    <div class="form-group">
+        <label for="password2">密碼(再次輸入)</label>
+        <input type="password"
+        class="form-control"
+        id="password2"
+        name="password2"
+        placeholder="請再次輸入密碼"/>
+    </div>
+<input type="hidden" name="btname" value="addUser"/>
+<button type="submit" class="btn btn-success">申請</button>
+</form>
+<br/>
+{% endblock %}

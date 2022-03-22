@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block style %}
+{% endblock %}
+{% block title %} 個案資料 {% endblock %}
+{% block filter %}
+<table align="center">
+    <thead>
+        <h2 align="center">我的清單</h2>
+    </thead>
+    <tr>
+        <td>　</td>
+        {% for mycase in cases %}
+        <td><a href="{{ url_for('func_case.detail_var', caseID=mycase.redcap_id) }}">{{ mycase.name }}</a></td>
+        <td>　</td>
+        {% endfor %}
+    </tr>
+</table>
+<br>
+{% endblock %}
+{% block content %}
+{% if detail_display %}
+<div class="table" align="center" id="casetable">
+    <h2 align="center"> 個案資料</h2>
+    {% for item in case %}
+    <table>
+        <tr>
+            <th>姓名</th>
+            <td>{{ item.name }}</td>
+            <th>家中人數</th>
+            <td>{{ item.number_of_family_members }}</td>
+        </tr>
+        <tr>
+            <th>年齡</th>
+            <td>{{ item.age }}</td>
+            <th>主要照顧者</th>
+            <td>{{ item.key_person }}</td>
+        </tr>
+        <tr>
+            <th>性別</th>
+            <td>{{ item.sex }}</td>
+            <th>教育程度</th>
+            <td>{{ item.education_level }}</td>
+        </tr>
+        <tr>
+            <th>區域</th>
+            <td>{{ item.location }}</td>
+            <th>職業</th>
+            <td>{{ item.occupation }}</td>
+        </tr>
+        <tr>
+            <th>地址</th>
+            <td>{{ item.address }}</td>
+            <th>表單完成狀態</th>
+            <td>{{ item.ddcd_54576c_complete }}</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="center">
+                <a href="{{caselink['surveyQueueLink']}}" target="_blank"><div id="surveyQueue" class="btn btn-primary">問卷連結</div></a>
+            </td>
+        </tr>
+    </table>
+    {% endfor %}
+    <br>
+</div>
+<!-- <div class="table" align="center" id="recordtable">
+    <h2 align="center">填寫新紀錄</h2>
+    <table align="center">
+        <tr align="center">
+            <th>問卷佇列</th>
+            <th>基本資料</th>
+            <th>醫事記錄</th>
+            <th>藥事記錄</th>
+            <th>物治紀錄</th>
+        </tr>
+        <tr align="center">
+            <td>
+                <a href="{{caselink['surveyQueueLink']}}" target="_blank">
+                    <div id="daae" class="btn btn-primary">連</div>
+                </a>
+            </td>
+            <td>
+                <a href="{{caselink['daae_link']}}" target="_blank">
+                    <div id="daae" class="btn btn-primary">新</div>
+                </a>
+            </td>
+            <td>
+                <a href="{{caselink['daae_cd6e_link']}}" target="_blank">
+                    <div id="daae_cd6e" class="btn btn-info">新</div>
+                </a>
+            </td>
+            <td>
+                <a href="{{caselink['ddcd_b6a2_link']}}" target="_blank">
+                    <div id="ddcd_b6a2" class="btn btn-success">新</div>
+                </a>
+            </td>
+            <td>
+                <a href="{{caselink['daae_1413_link']}}" target="_blank">
+                    <div id="daae_1413" class="btn btn-danger">新</div>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div> -->
+
+{% endif %}
+{% endblock %}
+{% block script%}
+{%endblock%}

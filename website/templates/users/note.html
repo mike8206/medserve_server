@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %} 個人筆記 {% endblock%}
+{% block content %}
+</br>
+<h3 align="center">個人筆記</h3>
+<br/>
+<div align="center">
+    <form method="POST">
+        <input type="hidden" name="btname" value="exportNote"/>
+        <button type="submit" class="btn btn-info">匯出成CSV檔</button>
+    </form>
+</div>
+<ul class="list-group list-group-flush" id="notes">
+{% for note in user.notes %}
+    <li class="list-group-item">
+    {{ note.data }}
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </li>
+{% endfor %}
+</ul>
+<form method="POST">
+    <textarea name="note" id="note" class="form-control"></textarea>
+    <br />
+    <div align="center">
+        <input type="hidden" name="btname" value="addNote"/>
+        <button type="submit" class="btn btn-success">新增筆記</button>
+    </div>
+</form>
+{% endblock %}
+{% block script %}
+<script
+    type="text/javascript"
+    src="{{ url_for('static', filename='notefunc.js')}}"
+></script>
+{% endblock %}

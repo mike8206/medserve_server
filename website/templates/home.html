@@ -1,0 +1,11 @@
+{% extends "base.html" %} 
+{% block title %} 首頁 {% endblock %} 
+{% block content %}
+</br>
+    <h1 align="center"> 千里之行始於足下 </h1>
+    <div class="img" align="center">
+        <img src="{{ url_for('static', filename='home.jpeg')}}"
+        alt="Homepage picture">
+    </div>
+<br />
+{% endblock %}

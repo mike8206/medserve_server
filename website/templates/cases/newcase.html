@@ -1,0 +1,157 @@
+{% extends "base.html" %} 
+{% block style %}
+{% endblock %}
+{% block title %} 新增個案 {% endblock %} 
+{% block filter %}
+{% endblock %}
+{% block content %}
+<form method="POST">
+    <div class="table">
+        <table>
+            <br/>
+            <h3 align="center">新增個案</h3>
+            <table align="center" id="basetable">
+                <th>填表人：</th>
+                <td>{{ user.userName }}</td>
+                <th>填表日期：</th>
+                <td>{{ date }}</td>
+            </table>
+            <table align="center" id="formtable">
+                <div class="form-group">
+                    <label class="control-label requiredField" for="name">
+                        個案姓名<span class="asteriskField">*</span>
+                    </label>
+                    <input type="text" class="form-control"
+                    id="name" name="name" placeholder="請輸入姓名">
+                </div>
+                <div class="form-group">
+                    <label for="sex">性別</label>
+                    <select name="sex" id="sex">
+                        <option value="1">男性</option>
+                        <option value="0">女性</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="birthday">出生年月日</label>
+                    <input type="date" class="form-control"
+                    id="birthday" name="birthday">
+                </div>
+                <div class="form-group">
+                    <label for="age">年齡</label>
+                    <input type="text" class="form-control" 
+                    id="age" name="age" placeholder="請輸入年齡">
+                </div>
+                <label for="Area">個案地區</label>
+                <select name="Area" id="Area">
+                    <option value="Hualien">花蓮</option>
+                    <option value="Taichung">台中</option>
+                    <option value="Taitung">台東</option>
+                </select>    
+                <div class="form-group">
+                    <select name="location" id="location">
+                        <option value=1>馬遠</option>
+                        <option value=2>東光</option>
+                        <option value=3>崙山</option>
+                        <option value=4>立山</option>
+                        <option value=5>山里</option>
+                        <option value=6>明利</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="address">地址</label>
+                    <input type="text" class="form-control"
+                    id="address" name="address" placeholder="請輸入地址">
+                </div>
+                <div class="form-group">
+                    <label for="number_of_family_members">家中人數</label>
+                    <input type="text" class="form-control"
+                    id="number_of_family_members" name="number_of_family_members"
+                    placeholder="請輸入家中人數">
+                </div>
+                <div class="form-group">
+                    <label for="key_person">主要照顧者(幫忙煮飯、打掃家裡等等)</label>
+                    <input type="text" class="form-control"
+                    id="key_person" name="key_person"
+                    placeholder="請輸入主要照顧者"/>
+                </div>
+                <label for="education">教育程度</label>
+                <select name="education" id="education">
+                    <option value="notKnown">不明</option>
+                    <option value="nonEducate">未就讀</option>
+                    <option value="k9">國中小</option>
+                    <option value="highEducate">高中及以上</option>
+                </select>
+                <div class="form-group">
+                    <select name="education_level" id="education_level">
+                        <option value=""></option>
+                    </select>
+                </div>  
+                <div class="form-group">
+                    <label for="occupation">職業</label>
+                    <input type="text" class="form-control"
+                    id="occupation" name="occupation"
+                    placeholder="請輸入職業"/>
+                </div>
+                <br />
+                <td>
+                    <input type="hidden" name="btname" value="newcase" />
+                    <button type="submit" class="btn btn-success">提交</button>
+                </td>
+            </table>
+        </table>
+    </div>
+</form>
+<br/>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+    $('#Area').on('change', function(){
+    $('#location').html('');
+    if($('#Area').val()=="Hualien"){
+        $('#location').append('<option value="1">馬遠</option>');
+        $('#location').append('<option value="2">東光</option>');
+        $('#location').append('<option value="3">崙山</option>');
+        $('#location').append('<option value="4">立山</option>');
+        $('#location').append('<option value="5">山里</option>');
+        $('#location').append('<option value="6">明利</option>');
+    }else if($('#Area').val()=="Taichung"){
+        $('#location').append('<option value="8">桃山</option>');
+        $('#location').append('<option value="9">桃山教會</option>');
+        $('#location').append('<option value="10">達觀</option>');
+        $('#location').append('<option value="11">香川</option>');
+        $('#location').append('<option value="12">竹林</option>');
+        $('#location').append('<option value="13">烏石坑</option>');
+        $('#location').append('<option value="14">雙崎</option>');
+        $('#location').append('<option value="15">三叉坑</option>');
+    }else if($('#Area').val()=="Taitung"){
+        $('#location').append('<option value="7">台坂</option>');
+    } else {
+        $('#location').append('<option value=""></option>');
+    }
+    });
+</script>
+<script type="text/javascript">
+    $('#education').on('change', function(){
+    $('#education_level').html('');
+    if($('#education').val()=="nonEducate"){
+        $('#education_level').append('<option value="0">不識字</option>');
+        $('#education_level').append('<option value="1">自修</option>');
+    }else if($('#education').val()=="k9"){
+        $('#education_level').append('<option value="2">國小肄業</option>');
+        $('#education_level').append('<option value="3">國小畢業</option>');
+        $('#education_level').append('<option value="4">國中肄業</option>');
+        $('#education_level').append('<option value="5">國中畢業</option>');
+    }else if($('#education').val()=="highEducate"){
+        $('#education_level').append('<option value="6">高中（職）肄業</option>');
+        $('#education_level').append('<option value="7">高中（職）畢業</option>');
+        $('#education_level').append('<option value="8">大專肄業</option>');
+        $('#education_level').append('<option value="9">大專畢業</option>');
+        $('#education_level').append('<option value="10">大學肄業</option>');
+        $('#education_level').append('<option value="11">大學畢業</option>');
+        $('#education_level').append('<option value="12">研究所（含以上）畢業</option>');
+    } else {
+        $('#education_level').append('<option value=""></option>');
+    }
+    });
+</script>
+{% endblock %}

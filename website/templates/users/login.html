@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %} 登入頁面 {% endblock%}
+{% block content %}
+<form method="POST">
+</br>
+    <h3 align="center">登入</h3>
+    <div class="form-group">
+    <label for="account">帳號</label>
+        <input type="account"
+            class="form-control"
+            id="account"
+            name="account"
+            placeholder="請輸入帳號"/>
+    </div>
+    <div class="form-group">
+    <label for="password">密碼</label>
+        <input type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="請輸入密碼"/>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-primary">登入</button>
+  </form>
+{% endblock %}
