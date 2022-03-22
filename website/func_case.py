@@ -50,7 +50,7 @@ def newcase():
                     'ddcd_54576c_complete': 2,
                 }
                 casedata = json.dumps([record]) 
-                #r = redcapnew(casedata)
+                r = redcapnew(casedata)
                 status = request_code(r.status_code)
                 if status == '查詢成功':
                     try:
@@ -219,10 +219,5 @@ def redcapLink(caseID):
     'returnFormat': 'json'
     }
     surveyQueueLink = requests.post(url,data=surveyQueueLink, verify=False).text
-    # daae_link = requests.post(url,data=daae, verify=False).text
-    # daae_cd6e_link = requests.post(url,data=daae_cd6e, verify=False).text
-    # ddcd_b6a2_link = requests.post(url,data=ddcd_b6a2, verify=False).text
-    # daae_1413_link = requests.post(url,data=daae_1413, verify=False).text
     dict1 = {'surveyQueueLink':surveyQueueLink}
-    # dict1 = {'surveyQueueLink':surveyQueueLink,'daae_link':daae_link,'daae_cd6e_link':daae_cd6e_link,'ddcd_b6a2_link':ddcd_b6a2_link,'daae_1413_link':daae_1413_link}
     return (dict1)
