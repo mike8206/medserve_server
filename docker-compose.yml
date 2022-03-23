@@ -7,5 +7,5 @@ services:
     ports:
       - '8443:8443'
     volumes:
-      - '~/data/docker_data/WebServer:/WebServer'
+      - '~/data/docker_data/website:/website'
     network_mode: 'bridge'
