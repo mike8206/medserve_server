@@ -53,11 +53,7 @@ def newcase():
                 r = redcapnew(casedata)
                 status = request_code(r.status_code)
                 if status == '查詢成功':
-                    try:
-                        birthday=datetime.strptime(birthday, "%Y-%m-%d")
-                    except ValueError:
-                        birthday=None
-                    new_case = Case(redcap_id=patient_id,name=name,sex=sex,birthday=birthday,age=age,location=location)
+                    new_case = Case(redcap_id=patient_id)
                     db.session.add(new_case)
                     db.session.commit()
                     flash('個案資料已建立', category='success')
@@ -148,6 +144,24 @@ def detail_var(caseID):
         else:
             detail_display = True
             case = r.json()
+            for c in case:
+                patient_id = c['patient_id']
+                name = str(c['name'])
+                sex = str(c['sex'])
+                birthday = c['birthday']
+                age = str(c['age'])
+                location = str(c['location'])
+            try:
+                birthday=datetime.strptime(birthday, "%Y-%m-%d")
+            except ValueError:
+                birthday=None
+            case_update = Case.query.filter_by(redcap_id=patient_id).first()
+            case_update.name=name
+            case_update.sex=sex
+            case_update.birthday=birthday
+            case_update.age=age
+            case_update.location=location
+            db.session.commit()
             caselink = redcapLink(caseID)
     return render_template("/cases/detail.html", user=current_user, detail_display=detail_display, caseID=caseID, case=case,cases=cases, caselink=caselink)
 
@@ -178,43 +192,6 @@ def redcapLink(caseID):
     'token': token,
     'content': 'surveyQueueLink',
     'format': 'json',
-    'record': caseID,
-    'returnFormat': 'json'
-    }
-    daae = {
-    'token': token,
-    'content': 'surveyLink',
-    'format': 'json',
-    'instrument': 'daae',
-    'event': '',
-    'record': caseID,
-    'returnFormat': 'json'
-
-    }
-    daae_cd6e = {
-    'token': token,
-    'content': 'surveyLink',
-    'format': 'json',
-    'instrument': 'daae_cd6e',
-    'event': '',
-    'record': caseID,
-    'returnFormat': 'json'
-    }
-    ddcd_b6a2 = {
-    'token': token,
-    'content': 'surveyLink',
-    'format': 'json',
-    'instrument': 'ddcd_b6a2',
-    'event': '',
-    'record': caseID,
-    'returnFormat': 'json'
-    }
-    daae_1413 = {
-    'token': token,
-    'content': 'surveyLink',
-    'format': 'json',
-    'instrument': 'daae_1413',
-    'event': '',
     'record': caseID,
     'returnFormat': 'json'
     }
