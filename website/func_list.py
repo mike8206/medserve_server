@@ -27,24 +27,20 @@ def list():
                     birthday=c['birthday']
                     age=c['age']
                     location=c['location']
+                    try:
+                        birthday=datetime.strptime(c['birthday'], "%Y-%m-%d")
+                    except ValueError:
+                        birthday=None
                     case = Case.query.filter_by(redcap_id=redcap_id).first()
                     if case:
-                        Case.name=name
-                        Case.sex=sex
-                        try:
-                            birthday=datetime.strptime(c['birthday'], "%Y-%m-%d")
-                            Case.birthday=birthday
-                        except ValueError:
-                            Case.birthday=Case.birthday
-                        Case.age=age
-                        Case.location=location
+                        case.name=name
+                        case.sex=sex
+                        case.birthday=birthday
+                        case.age=age
+                        case.location=location
                         db.session.commit()
                     else:
-                        try:
-                            birthday=datetime.strptime(c['birthday'], "%Y-%m-%d")
-                            new_case = Case(redcap_id=redcap_id, name=name, sex=sex, birthday=birthday, age=age, location=location)
-                        except ValueError:
-                            new_case = Case(redcap_id=redcap_id, name=name, sex=sex, age=age, location=location)
+                        new_case = Case(redcap_id=redcap_id, name=name, birthday=birthday, sex=sex, age=age, location=location)
                         db.session.add(new_case)
                         db.session.commit()
                 cases = Case.query.all()
