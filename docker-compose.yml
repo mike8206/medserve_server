@@ -7,4 +7,4 @@ services:
     ports:
       - '8443:8443'
     volumes:
-      - 'WebServer:/app'
+      - '~/data/docker_data/WebServer:/app'
