@@ -8,6 +8,5 @@ services:
       - '8443:8443'
     volumes:
       - 'app:/app'
-    network_mode: 'host'
 volumes:
   app:
