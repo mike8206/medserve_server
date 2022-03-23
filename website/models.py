@@ -32,19 +32,3 @@ class MyCaseList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     list = db.Column(db.PickleType)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-# class Chart(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     chartS = db.Column(db.String(10000))
-#     chartO = db.Column(db.String(10000))
-#     chartA = db.Column(db.String(10000))
-#     chartP = db.Column(db.String(10000))
-#     date = db.Column(db.DateTime(timezone=True), default=func.now())
-#     case_id = db.Column(db.Integer, db.ForeignKey('case.id'))
-
-# class Photo(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     filename = db.Column(db.String(150))
-#     fileobject = db.Column(db.LargeBinary)
-#     date = db.Column(db.DateTime(timezone=True), default=func.now())
-#     case_id = db.Column(db.Integer, db.ForeignKey('case.id'))
